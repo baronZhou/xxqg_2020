@@ -26,8 +26,8 @@ skip_shipin_cache_list=["第一频道","学习视频","联播频道","看电视"
 shipin_title_list=["第一频道","学习视频","联播频道","看电视","看理论","看党史","看慕课","看人物","看文艺","看科学","看自然","看影视","看法治","看军事","网络视听",]
 
 numbers_of_one_shipin_title=5 #每一个标题栏目下翻页的次数,建议为5
-shipin_count_max=6 # 阅读文章上限6分(1篇1分)，需要完整阅读6篇文章+, 建议10
-shipin_period_max=18 # 阅读文章时长上限6分(累计3分钟赚取1分), 需要阅读18分钟+, 建议24
+shipin_count_max=10 # 阅读文章上限6分(1篇1分)，需要完整阅读6篇文章+, 建议10
+shipin_period_max=24 # 阅读文章时长上限6分(累计3分钟赚取1分), 需要阅读18分钟+, 建议24
 shipin_count=0
 shipin_starttime = datetime.now()
 
@@ -39,8 +39,8 @@ wenzhang_title_list=["推荐","要闻","新思想","综合","直播中国","快�
 "科技","技能","理论","文化","读书","党史","电影","传播中国","健康","人事","法纪","国际","十九大时间","纪实","用典","时评","军事","旅游","学习之家"]
 
 numbers_of_one_wz_title=10  #每一个标题栏目下翻页的次数,建议为10
-yuedu_count_max=6 # 阅读文章上限6分(1篇1分)，需要完整阅读6篇文章+, 建议12
-yuedu_period_max=12 # 阅读文章时长上限6分(累计2分钟赚取1分), 需要阅读12分钟+, 建议18
+yuedu_count_max=12 # 阅读文章上限6分(1篇1分)，需要完整阅读6篇文章+, 建议12
+yuedu_period_max=18 # 阅读文章时长上限6分(累计2分钟赚取1分), 需要阅读12分钟+, 建议18
 yuedu_count=0
 yuedu_starttime = datetime.now()
 
@@ -297,8 +297,8 @@ class usb_install_thread(threading.Thread): # 安装确认
 			time.sleep(0.2)
 				
 			try:
-				if d.exists(text="允许"):
-					d(resourceId="com.android.packageinstaller:id/permission_allow_button").click() #允许
+				#if d.exists(text="允许"):
+				#	d(resourceId="com.android.packageinstaller:id/permission_allow_button").click() #允许
 				if d.exists(text="我知道了"):
 					d(resourceId="cn.xuexi.android:id/btn_right_text").click() #我知道了
 				if d(description=u"同意").exists:
@@ -308,6 +308,8 @@ class usb_install_thread(threading.Thread): # 安装确认
 					d.click(0.834, 0.897)
 				if d.xpath("//*[@text='立即开启']").exists:
 					d.xpath("//*[@text='立即开启']").click()
+				if d.xpath("//*[@text='要允许 学习强国 访问以下权限吗？']").exists:  #红米note
+					d.xpath("//*[@text='允许']").click()
 				if d.xpath("//*[@text='温馨提示']").exists and d.xpath("//*[@text='关闭']").exists:
 					d.xpath("//*[@text='关闭']").click()
 				
@@ -352,6 +354,3 @@ if __name__ == '__main__':
 				schedule.run_pending()
 				time.sleep(10)
 	FLAT_EXIT = True
-	
-
-
